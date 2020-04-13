@@ -1,0 +1,147 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    flavorDimensions "default" //相当于一个标记
+    productFlavors {
+
+        hash { dimension "default" }
+
+        baidu { dimension "default" }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/notice.txt'
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/java']
+            aidl.srcDirs = ['src/main/java']
+            renderscript.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    defaultConfig {
+        applicationId "com.basemvp.hong"
+        //gradle.properties 中配置
+        minSdkVersion getProperty("minSdk")
+        targetSdkVersion getProperty("compileSdk")
+        versionCode Integer.parseInt(getProperty("publishVersionCode"))
+        versionName getProperty("publishVersionName")
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    signingConfigs {
+        releaseConfig {
+            Properties properties = new Properties()
+            InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
+            properties.load(inputStream)
+            def storeFilePath = properties.getProperty("jks.name")
+            def storeFilePassword = properties.getProperty("jks.password")
+            def storeKeyAlias = properties.getProperty("jks.alias")
+            def storeKeyPassword = properties.getProperty("jks.alias.password")
+
+            if (storeFilePath == null) {
+                storeFilePath = "tcc.jks"
+            }
+
+            storeFile file(storeFilePath)
+            storePassword storeFilePassword
+            keyAlias storeKeyAlias
+            keyPassword storeKeyPassword
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        debugConfig {
+            storeFile file("tcc.jks")
+            storePassword "123456"
+            keyAlias "huashangshidai"
+            keyPassword "123456"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
+
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.releaseConfig
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+//自定义打包时apk名字
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "哈希_${variant.productFlavors[0].name}_V${variant.versionName}.apk"
+        }
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    implementation 'com.google.android.material:material:' + getProperty("supportLib")
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    //图片加载框架
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation 'jp.wasabeef:glide-transformations:3.0.1'
+    //注解
+    implementation 'com.jakewharton:butterknife:' + getProperty("butterKnife")
+    annotationProcessor 'com.jakewharton:butterknife-compiler:' + getProperty("butterKnife")
+    //沉浸式状态栏
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    //okhttp网络请求
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.google.code.gson:gson:2.7'
+    //rxJava
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.11'
+    //RxLifecycle2
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    //今日头条适配方案
+    implementation 'me.jessyan:autosize:1.1.2'
+    //权限申请
+    implementation 'com.yanzhenjie:permission:2.0.2'
+    implementation 'com.tencent:mmkv:1.0.13'
+
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
