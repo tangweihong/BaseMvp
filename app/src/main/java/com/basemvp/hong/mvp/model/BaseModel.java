@@ -6,6 +6,6 @@ import com.basemvp.hong.request.ApiService;
 /**
  * Create by Hong on 2020/4/13 16:36.
  */
-public class BaseModel {
+public interface BaseModel {
     ApiService mApiService = ApiRetrofit.getInstance().getApiService();
 }

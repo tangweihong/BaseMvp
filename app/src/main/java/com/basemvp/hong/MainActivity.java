@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.basemvp.hong.ui.base.BaseActivity;
+import com.basemvp.hong.ui.base.internal.FConfig;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+
+@FConfig(value = R.layout.activity_main)
+public class MainActivity extends BaseActivity {
+
+
 }

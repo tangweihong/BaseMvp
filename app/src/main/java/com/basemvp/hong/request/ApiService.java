@@ -2,6 +2,8 @@ package com.basemvp.hong.request;
 
 
 
+import com.basemvp.hong.mvp.model.entity.HomeEntity;
+
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -21,7 +23,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("api/auth/signIn")
-    Observable<Result<Object>> login(
+    Observable<Result<HomeEntity>> login(
             @Field("mobile")
                     String mobile,
             @Field("password")

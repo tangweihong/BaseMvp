@@ -16,10 +16,6 @@ public interface IBaseView {
      */
     void loadingFinish();
 
-    /**
-     * @param text
-     */
-    void loadingFailed(int res, String text);
 
     /**
      * show Toast
