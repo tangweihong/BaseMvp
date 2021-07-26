@@ -1,0 +1,70 @@
+/**
+ 引用步骤：
+ (1) 在 project 下的 build.gradle 文件第一行添加 apply from : "config.gradle"
+ (2) 在各个 module 中用 implementations rootProject.ext.dependencies['xxx'] 和 annotationProcessor rootProject.ext.dependencies['xxx']
+ **/
+ext {
+    android = [
+            applicationId    : "com.basemvp.hong",
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.3",
+            minSdkVersion    : 24,
+            targetSdkVersion : 29,
+            versionCode      : 13,
+            versionName      : "1.1.2"
+    ]
+    version = [
+//            androidSupportSdkVersion: "29.0.0",
+//            retrofitSdkVersion      : "2.4.0",
+//            glideSdkVersion         : "4.9.0",
+//            canarySdkVersion        : "1.5.4",
+//            constraintVersion       : "1.0.2",
+//            okhttp                  : "3.8.1"
+    ]
+
+    dependencies = [
+            "appcompat"            : 'androidx.appcompat:appcompat:1.1.0',
+            "design"               : 'com.google.android.material:material:1.2.0-alpha02',
+            "constraintlayout"     : 'androidx.constraintlayout:constraintlayout:1.1.3',
+            "annotation"           : 'androidx.annotation:annotation:1.1.0',
+            "support"              : 'androidx.legacy:legacy-support-v4:1.0.0',
+
+            "butterknife"          : 'com.jakewharton:butterknife:10.0.0',
+            "butterknifeCompiler"  : 'com.jakewharton:butterknife-compiler:10.0.0',
+            //OkHttp
+            "okhttp"               : 'com.squareup.okhttp3:okhttp:3.11.0',
+            "loggingInterceptor"   : 'com.squareup.okhttp3:logging-interceptor:3.4.1',
+            "retrofit"             : 'com.squareup.retrofit2:retrofit:2.4.0',
+            "converterGson"        : 'com.squareup.retrofit2:converter-gson:2.4.0',
+            "adapterRxjava"        : 'com.squareup.retrofit2:adapter-rxjava2:2.3.0',
+            "gson"                 : 'com.google.code.gson:gson:2.7',
+            //rxJava
+            "rxandroid"            : 'io.reactivex.rxjava2:rxandroid:2.0.2',
+            "rxjava"               : 'io.reactivex.rxjava2:rxjava:2.1.11',
+            //RxLifecycle2
+            "rxlifecycle"          : 'com.trello.rxlifecycle2:rxlifecycle:2.2.1',
+            "rxlifecycleAndroid"   : 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1',
+            "rxlifecycleComponents": 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1',
+            //万能适配器
+            "BRVAHelper"           : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2',
+            //沉浸式状态栏
+            "immersionbar"         : 'com.gyf.immersionbar:immersionbar:3.0.0',
+            //今日头条适配
+            "autosize"             : 'me.jessyan:autosize:1.1.2',
+            //RxPermission 权限设置
+            "permission"           : 'com.yanzhenjie:permission:2.0.2',
+            "rxpermissions"        : 'com.github.tbruyelle:rxpermissions:0.10.2',
+            //内存检测
+            "leakcanaryAndroid"    : 'com.squareup.leakcanary:leakcanary-android:2.2',
+            //glide
+            "glide"                : 'com.github.bumptech.glide:glide:4.9.0',
+            "glideCompiler"        : 'com.github.bumptech.glide:compiler:4.9.0',
+            "glideTransformations" : 'jp.wasabeef:glide-transformations:3.0.1',
+            //分包
+            "multidex"             : 'com.android.support:multidex:1.0.3',
+            //AgentWeb
+            "agentweb"             : 'com.just.agentweb:agentweb:4.0.3-beta',
+            "filechooser"          : 'com.just.agentweb:filechooser:4.1.3',
+            "Downloader"           : 'com.download.library:Downloader:4.1.3',
+    ]
+}
