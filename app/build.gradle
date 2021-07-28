@@ -1,24 +1,27 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     flavorDimensions "default" //相当于一个标记
+
+    //配置多渠道打包
     productFlavors {
-
-        hash { dimension "default" }
-
-        baidu { dimension "default" }
+        Taurus { dimension "default" }
     }
 
     lintOptions {
+        // 设置为 true， 将使所有release 构建都以issus的严重性级别为fatal（severity=false）的设置来运行lint
+        // 并且，如果发现了致命（fatal）的问题，将会中止构建（由abortOnError 控制）
         checkReleaseBuilds false
+        // 如果为 true，则当lint发现错误时停止 gradle构建
         abortOnError false
     }
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
@@ -28,6 +31,8 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/notice.txt'
     }
+
+
     sourceSets {
         main {
             manifest.srcFile 'src/main/AndroidManifest.xml'
@@ -40,108 +45,125 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
     defaultConfig {
-        applicationId "com.basemvp.hong"
-        //gradle.properties 中配置
-        minSdkVersion getProperty("minSdk")
-        targetSdkVersion getProperty("compileSdk")
-        versionCode Integer.parseInt(getProperty("publishVersionCode"))
-        versionName getProperty("publishVersionName")
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
     }
+
+    //获取properties
+    def keystorePropertiesFile = rootProject.file("local.properties")
+    def keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
     signingConfigs {
         releaseConfig {
-            Properties properties = new Properties()
-            InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
-            properties.load(inputStream)
-            def storeFilePath = properties.getProperty("jks.name")
-            def storeFilePassword = properties.getProperty("jks.password")
-            def storeKeyAlias = properties.getProperty("jks.alias")
-            def storeKeyPassword = properties.getProperty("jks.alias.password")
-
-            if (storeFilePath == null) {
-                storeFilePath = "tcc.jks"
-            }
-
-            storeFile file(storeFilePath)
-            storePassword storeFilePassword
-            keyAlias storeKeyAlias
-            keyPassword storeKeyPassword
-
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
             v1SigningEnabled true
             v2SigningEnabled true
         }
         debugConfig {
-            storeFile file("tcc.jks")
-            storePassword "123456"
-            keyAlias "huashangshidai"
-            keyPassword "123456"
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
 
     buildTypes {
         release {
+            /* 签名类型 */
+            signingConfig signingConfigs.releaseConfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.releaseConfig
-
         }
         debug {
             minifyEnabled false
             signingConfig signingConfigs.releaseConfig
         }
     }
+
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-//自定义打包时apk名字
+    //自定义打包时apk名字
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "哈希_${variant.productFlavors[0].name}_V${variant.versionName}.apk"
+            outputFileName = "${variant.productFlavors[0].name}_V${variant.versionName}.apk"
         }
     }
 }
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-
-    implementation 'com.google.android.material:material:' + getProperty("supportLib")
-    implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    //图片加载框架
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
-    implementation 'jp.wasabeef:glide-transformations:3.0.1'
+    implementation rootProject.ext.dependencies.appcompat
+    implementation rootProject.ext.dependencies.design
+    implementation rootProject.ext.dependencies.constraintlayout
+    implementation rootProject.ext.dependencies.annotation
+    implementation rootProject.ext.dependencies.support
     //注解
-    implementation 'com.jakewharton:butterknife:' + getProperty("butterKnife")
-    annotationProcessor 'com.jakewharton:butterknife-compiler:' + getProperty("butterKnife")
-    //沉浸式状态栏
-    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
-    //okhttp网络请求
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.google.code.gson:gson:2.7'
+    implementation rootProject.ext.dependencies.butterknife
+    annotationProcessor rootProject.ext.dependencies.butterknifeCompiler
+    //网络请求
+    implementation rootProject.ext.dependencies.okhttp
+    implementation rootProject.ext.dependencies.loggingInterceptor
+    implementation rootProject.ext.dependencies.retrofit
+    implementation rootProject.ext.dependencies.converterGson
+    implementation rootProject.ext.dependencies.adapterRxjava
+    implementation rootProject.ext.dependencies.gson
     //rxJava
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.11'
+    implementation rootProject.ext.dependencies.rxandroid
+    implementation rootProject.ext.dependencies.rxjava
     //RxLifecycle2
-    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
-    implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
-    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    implementation rootProject.ext.dependencies.rxlifecycle
+    implementation rootProject.ext.dependencies.rxlifecycleAndroid
+    implementation rootProject.ext.dependencies.rxlifecycleComponents
+    //BaseRecyclerViewAdapterHelper
+    implementation rootProject.ext.dependencies.BRVAHelper
+    //沉浸式状态栏
+    implementation rootProject.ext.dependencies.immersionbar
     //今日头条适配方案
-    implementation 'me.jessyan:autosize:1.1.2'
+    implementation rootProject.ext.dependencies.autosize
     //权限申请
-    implementation 'com.yanzhenjie:permission:2.0.2'
-    implementation 'com.tencent:mmkv:1.0.13'
+    implementation rootProject.ext.dependencies.permission
 
-    testImplementation 'junit:junit:4.13'
+    implementation rootProject.ext.dependencies.rxpermissions
+    //内存检测
+    debugImplementation rootProject.ext.dependencies.leakcanaryAndroid
+    //Glide图片加载
+    implementation rootProject.ext.dependencies.glide
+    implementation rootProject.ext.dependencies.glideTransformations
+    annotationProcessor rootProject.ext.dependencies.glideCompiler
+    //分包
+    implementation rootProject.ext.dependencies.multidex
+    //AgentWeb
+    implementation rootProject.ext.dependencies.agentweb    // (必选)
+    implementation rootProject.ext.dependencies.filechooser // (可选)
+    implementation rootProject.ext.dependencies.Downloader  // (可选)
+    //Zxing二维码
+    implementation 'com.google.zxing:core:3.3.0'
+    //智能下拉刷新
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
+    implementation 'com.scwang.smart:refresh-header-classics:2.0.1'
+    implementation 'com.scwang.smart:refresh-header-material:2.0.1'
+    implementation 'com.tencent:mmkv:1.0.13'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
+    implementation 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+    //Udesk
+    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

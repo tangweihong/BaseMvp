@@ -14,16 +14,7 @@ public class BaseToolBarActivity extends BaseActivity{
     View baseView;
     View contentView;
     private int layoutResIDs;
-    @Override
-    protected void initToolbar() {
 
-
-    }
-    /**
-     * custom base view toolbar add frame layout child view
-     *
-     * @param layoutResID
-     */
     @Override
     public void setContentView(int layoutResID) {
         baseView = LayoutInflater.from(this).inflate(R.layout.base_activity, null, false);

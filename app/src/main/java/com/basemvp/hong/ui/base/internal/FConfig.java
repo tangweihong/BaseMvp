@@ -1,5 +1,7 @@
 package com.basemvp.hong.ui.base.internal;
 
+import com.basemvp.hong.R;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,28 +15,32 @@ import java.lang.annotation.Target;
 public @interface FConfig {
 
     /**
+     * @return 是否隐藏toolbar 默认false显示
+     */
+    boolean hideToolbar() default false;
+
+    /**
      * layout resource id
      *
-     * @return  layout res id
+     * @return fragment layout res id
      */
     int value();
 
     /**
-     * loading
-     *
-     * @return is need loading
-     */
-    boolean loading() default true;
-
-    /**
-     * title
+     * Toolbar left Icon
      *
      * @return
      */
-    String title() default "";
+    int navigationIcon() default 0;
 
     /**
-     * @return toolbar return res id
+     * see more {@link }
+     *
+     * @return title 标题
      */
-    int navigationIcon() default 0;
+    String title() default "";
+
+    String rightText() default "";
+
+    int rightImage() default 0;
 }

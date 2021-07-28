@@ -18,9 +18,5 @@ public interface IPresenter<V extends IBaseView> {
      */
     void detachView();
 
-    /**
-     * 判断view是否已经销毁
-     * @return true 未销毁
-     */
-    boolean isViewAttach();
+
 }

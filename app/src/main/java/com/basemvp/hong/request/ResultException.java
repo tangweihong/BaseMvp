@@ -1,12 +1,5 @@
 package com.basemvp.hong.request;
 
-/**
- * Incremental change is better than ambitious failure.
- *
- * @author : <a href="http://mysticcoder.coding.me/myBlog">MysticCoder</a>
- * @date : 2017/12/7
- * @desc :
- */
 
 
 public class ResultException extends RuntimeException {

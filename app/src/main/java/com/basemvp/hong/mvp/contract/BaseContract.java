@@ -1,5 +1,7 @@
 package com.basemvp.hong.mvp.contract;
 
+import android.os.Bundle;
+
 import com.basemvp.hong.mvp.model.BaseModel;
 import com.basemvp.hong.mvp.view.IBaseView;
 import com.basemvp.hong.request.Result;
@@ -19,6 +21,6 @@ public interface BaseContract {
     }
 
     interface model<T> extends BaseModel {
-        Observable<Result<T>> getData();
+        Observable<Result<T>> getData(Bundle bundle);
     }
 }

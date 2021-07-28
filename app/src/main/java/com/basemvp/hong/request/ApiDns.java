@@ -8,12 +8,7 @@ import java.util.List;
 
 import okhttp3.Dns;
 
-/**
- * File descripition:   ipv6和ipv4换位  处理部分手机网络请求慢问题
- *
- * @author lp
- * @date 2019/4/16
- */
+
 
 public class ApiDns implements Dns {
     @Override

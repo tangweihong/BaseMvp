@@ -1,7 +1,6 @@
 package com.basemvp.hong.ui.home;
 
 import com.basemvp.hong.mvp.presenter.BasePresenter;
-import com.basemvp.hong.mvp.presenter.IndexPresenter;
 import com.basemvp.hong.ui.base.BaseMvpActivity;
 
 /**

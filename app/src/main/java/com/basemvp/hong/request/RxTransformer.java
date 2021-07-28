@@ -10,13 +10,6 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Incremental change is better than ambitious failure.
- *
- * @author : <a href="http://mysticcoder.coding.me">MysticCoder</a>
- * @date : 2018/3/15
- * @desc :
- */
 
 public class RxTransformer {
 

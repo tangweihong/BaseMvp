@@ -25,15 +25,9 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * File descripition:   创建Retrofit
- *
- * @author lp
- * @date 2018/6/19
- */
 
 public class ApiRetrofit {
-    private String TAG = "hash %s";
+    private String TAG = "base %s";
     private static ApiRetrofit apiRetrofit;
     private Retrofit retrofit;
     private ApiService apiServer;

@@ -7,15 +7,22 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
  */
 
 public interface IBaseView {
-    void loading();
-
-    void getData();
 
     /**
-     * loading finish
+     * 获取数据
+     */
+    void onGetData();
+
+    /**
+     * 加载结束
      */
     void loadingFinish();
 
+
+    /**
+     * 加载失败
+     */
+    void LoadingError(String msg, int code);
 
     /**
      * show Toast
@@ -24,11 +31,19 @@ public interface IBaseView {
      */
     void showToast(String message);
 
-    void showLoading();
+    /**
+     * dialog 加载
+     */
+    void showLoadingDialog();
+
+    void showLoadingDialog(boolean isCancelable);
+
+    void showLoadingDialog(boolean isCancelable, String msg);
 
     /**
      * @param <T>
      * @return
      */
     <T> LifecycleTransformer<T> bindToLifecycle();
+
 }

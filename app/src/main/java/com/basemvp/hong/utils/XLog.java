@@ -5,7 +5,7 @@ import android.util.Log;
 public final class XLog {
     private static final String LOG_FORMAT = "%1$s\n%2$s";
     private static volatile boolean DEBUG = false;
-    private static final String TAG = "hash %s";
+    private static final String TAG = "base %s";
 
     private XLog() {
     }
