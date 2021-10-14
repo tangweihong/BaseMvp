@@ -17,6 +17,7 @@ android {
         checkReleaseBuilds false
         // 如果为 true，则当lint发现错误时停止 gradle构建
         abortOnError false
+
     }
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
@@ -83,12 +84,15 @@ android {
         release {
             /* 签名类型 */
             signingConfig signingConfigs.releaseConfig
-            minifyEnabled false
+            minifyEnabled false     //是否开启混淆
+            debuggable false        //是否支持调试
+            zipAlignEnabled true    //是否开启zip压缩
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
             signingConfig signingConfigs.releaseConfig
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -136,7 +140,6 @@ dependencies {
     implementation rootProject.ext.dependencies.autosize
     //权限申请
     implementation rootProject.ext.dependencies.permission
-
     implementation rootProject.ext.dependencies.rxpermissions
     //内存检测
     debugImplementation rootProject.ext.dependencies.leakcanaryAndroid
@@ -151,19 +154,17 @@ dependencies {
     implementation rootProject.ext.dependencies.filechooser // (可选)
     implementation rootProject.ext.dependencies.Downloader  // (可选)
     //Zxing二维码
-    implementation 'com.google.zxing:core:3.3.0'
+    implementation rootProject.ext.dependencies.zxing
+
+    implementation rootProject.ext.dependencies.mmkv
+    implementation rootProject.ext.dependencies.eventbus  
     //智能下拉刷新
-    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
-    implementation 'com.scwang.smart:refresh-header-classics:2.0.1'
-    implementation 'com.scwang.smart:refresh-header-material:2.0.1'
-    implementation 'com.tencent:mmkv:1.0.13'
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation rootProject.ext.dependencies.smart_kernel  //核心必须依赖
+    implementation rootProject.ext.dependencies.smart_classics
+    implementation rootProject.ext.dependencies.smart_material
 
-    implementation 'org.projectlombok:lombok:1.18.8'
-    annotationProcessor 'org.projectlombok:lombok:1.18.8'
-
-    //Udesk
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation rootProject.ext.dependencies.lombok
+    annotationProcessor rootProject.ext.dependencies.lombok
+    androidTestImplementation rootProject.ext.dependencies.junit
+    androidTestImplementation rootProject.ext.dependencies.espresso
 }

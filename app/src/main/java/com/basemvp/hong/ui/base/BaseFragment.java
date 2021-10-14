@@ -185,40 +185,14 @@ public class BaseFragment extends RxFragment implements IBaseView {
         super.onStart();
     }
 
-    boolean mFirstLoading = false;// 是否第一次加载
 
-    boolean bUserVisible = true;
 
-    @Override
-    public void onResume() {
-
-        super.onResume();
-        if (!mFirstLoading) {
-            lazyData();
-            mFirstLoading = true;
-        }
-        bUserVisible = true;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        bUserVisible = false;
-    }
 
     @Override
     public void onStop() {
         super.onStop();
     }
 
-    /**
-     * 当前Fragment是否可见（用户在手机屏幕看得见？）。
-     *
-     * @return
-     */
-    public boolean isCurFragmentVisible() {
-        return bUserVisible;
-    }
 
     @Override
     public void onDestroyView() {

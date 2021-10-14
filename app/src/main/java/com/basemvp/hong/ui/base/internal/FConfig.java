@@ -20,27 +20,29 @@ public @interface FConfig {
     boolean hideToolbar() default false;
 
     /**
-     * layout resource id
-     *
-     * @return fragment layout res id
+     * @return layout res id
      */
     int value();
 
     /**
-     * Toolbar left Icon
+     * Toolbar 返回 Icon
      *
      * @return
      */
     int navigationIcon() default 0;
 
     /**
-     * see more {@link }
-     *
      * @return title 标题
      */
     String title() default "";
 
+    /**
+     * @return 右边文字
+     */
     String rightText() default "";
 
+    /**
+     * @return 右边图片
+     */
     int rightImage() default 0;
 }

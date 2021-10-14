@@ -10,9 +10,18 @@ public abstract class BaseMvpFragment<P extends BasePresenter> extends BaseFragm
     protected P mPresenter;
 
 
-
     public abstract P getPresenter();
 
+    public BaseMvpFragment() {
+        mPresenter = getPresenter();
+        checkPresenter();
+    }
+
+    private void checkPresenter() {
+        if (mPresenter == null) {
+            throw new IllegalArgumentException("presenter == null");
+        }
+    }
 
     @Override
     public void onDestroyView() {

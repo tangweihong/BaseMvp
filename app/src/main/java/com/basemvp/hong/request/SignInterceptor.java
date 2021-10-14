@@ -46,8 +46,8 @@ public class SignInterceptor implements Interceptor {
         Headers headers = originalRequest.headers().newBuilder()
                 .add("Accept", "application/json")
                 .add("Content-Type", "application/json")
-                .add("Authentication", token)
-                .add("lang", lang)
+                .add("Authorization", token)
+                .add("language", lang)
                 .build();
         Request request = originalRequest.newBuilder().headers(headers).build();
         return chain.proceed(request);

@@ -2,12 +2,14 @@ package com.basemvp.hong.request;
 
 import java.io.Serializable;
 
-public class Result<T> implements Serializable {
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    /**
-     *
-     */
-    public T data;
-    public int code;
-    public String desc;
+@NoArgsConstructor
+@Data
+public class Result<T> implements Serializable {
+    private  int code;
+    private String msg;
+    private  T data;
+
 }

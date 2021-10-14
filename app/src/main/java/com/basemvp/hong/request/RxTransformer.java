@@ -57,7 +57,7 @@ public class RxTransformer {
         //隐藏进度条
         return observable -> observable.subscribeOn(Schedulers.io())
                 .doOnSubscribe(disposable -> {
-                    view.loading();//显示进度条
+//                    view.loading();//显示进度条
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .throttleFirst(2, TimeUnit.SECONDS)
@@ -77,7 +77,7 @@ public class RxTransformer {
         //隐藏进度条
         return observable -> observable.subscribeOn(Schedulers.io())
                 .doOnSubscribe(disposable -> {
-                    view.showLoading();//显示进度条
+                    view.showLoadingDialog();//显示进度条
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .throttleFirst(2, TimeUnit.SECONDS)

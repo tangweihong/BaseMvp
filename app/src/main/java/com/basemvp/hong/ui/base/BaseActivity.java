@@ -71,6 +71,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
         }
         initView();
         initData();
+        initPresenter();
         onGetData();
     }
 
@@ -79,11 +80,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            conf.setLocale(myLocale);
-        } else {
-            conf.locale = myLocale;
-        }
+        conf.setLocale(myLocale);
         res.updateConfiguration(conf, dm);
     }
 
@@ -107,6 +104,8 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
     protected void initData() {
     }
 
+    protected void initPresenter() {
+    }
 
     /**
      * get {@link FConfig#value()}
@@ -148,7 +147,6 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
             setRightText(fConfig.rightText(), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    setRightOnClickListener();
                 }
             });
         }
@@ -156,11 +154,9 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
             setRightImage(fConfig.rightImage(), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    setRightOnClickListener();
                 }
             });
         }
-//        ImmersionBar.with(this).statusBarView(R.id.status_bar_line).init();
         ImmersionBar.setTitleBar(this, vToolbar);
     }
 
@@ -207,12 +203,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
         Glide.with(this).load(url).into(view);
     }
 
-    /**
-     * set right OnClickListener
-     */
-    protected void setRightOnClickListener() {
 
-    }
 
     @Override
     protected void onStart() {
@@ -310,7 +301,6 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
     }
 
 
-    @Override
     public void onGetData() {
 
     }

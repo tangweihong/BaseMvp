@@ -7,13 +7,7 @@ package com.basemvp.hong.common;
  * Version:1
  */
 public class Constants {
-    public static final String HOME_FILE_PATH = "Base";
-    public static final String _HTTP = "http://";
-    public static final String _HTTPS = "https://";//正式环境使用
-    public static String _URL = _HTTP + AppInfo.HOST;
-
-
-
+    public static String _URL = AppInfo.HOST;
     public static final String LANGUAGE = "language";
     public static final String TOKEN = "token";
 }

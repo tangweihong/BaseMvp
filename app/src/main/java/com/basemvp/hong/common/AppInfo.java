@@ -8,22 +8,20 @@ import com.basemvp.hong.utils.AppUtil;
 
 
 public class AppInfo {
-    public static String PACKAGE;
-    public static String VERSION_NAME;
-    public static int VERSION_CODE;
     public static String HOST;
-    public static String appId;
+    public static String WS_HOST;
+    public static String WEB_HOST;
 
     public static void init(Context context) {
-        PACKAGE = context.getPackageName();
-        VERSION_CODE = AppUtil.getVersionCode(context);
-        VERSION_NAME = AppUtil.getVersionName(context);
-//        HOST = AppUtil.getMetaData(context, "HOST");
-//        HOST = "";//正式环境
-        HOST = "";//测试环境
+        HOST = "https://api.dragonai.pro/";//线上正式环境
+        WS_HOST = "wss://api.dragonai.pro/ws";//线上正式环境
+        WEB_HOST = "https://www.dragonai.pro/";//WebView
+        //线上测试环境
         if (BuildConfig.DEBUG) {
-//        HOST = "";//正式环境
-            HOST = "";//测试环境
+//            HOST = "https://longpinlian.api.gcoincloud.top/";//测试
+//            WS_HOST = "wss://longpinlian.api.gcoincloud.top/ws";
+//            WEB_HOST = "https://longpinlian.h5.gcoincloud.top/";
+
         }
     }
 }

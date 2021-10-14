@@ -3,13 +3,14 @@ package com.basemvp.hong.mvp.presenter;
 import android.os.Bundle;
 
 import com.basemvp.hong.mvp.contract.BaseContract;
+import com.basemvp.hong.mvp.presenter.impl.IRequestDataPresenter;
 import com.basemvp.hong.request.BaseObserver;
 import com.basemvp.hong.request.RxTransformer;
 
 /**
  * Create by Hong on 2020/4/14 11:10.
  */
-public class RequestPresenter<T> extends BasePresenter<BaseContract.view, BaseContract.model> {
+public class RequestPresenter<T> extends BasePresenter<BaseContract.view, BaseContract.model>  {
     public RequestPresenter(BaseContract.view view) {
         super(view);
     }
@@ -20,7 +21,7 @@ public class RequestPresenter<T> extends BasePresenter<BaseContract.view, BaseCo
 
     public void doGetData(Bundle bundle) {
         mModel.getData(bundle)
-                .compose(RxTransformer.transform(getView()))
+                .compose(RxTransformer.transformWithLoadingDialog(getView()))
                 .subscribe(new BaseObserver<T>() {
                     @Override
                     public void onSuccess(T response) {
@@ -28,11 +29,13 @@ public class RequestPresenter<T> extends BasePresenter<BaseContract.view, BaseCo
                     }
 
                     @Override
-                    public void onFailure(String msg) {
-                        getView().showToast(msg);
+                    public void onFailure(String error, int code) {
+                        getView().showToast(error);
                     }
+
                 });
     }
+
 
     public void doGetDataDialog(Bundle bundle) {
         mModel.getData(bundle)
@@ -44,9 +47,10 @@ public class RequestPresenter<T> extends BasePresenter<BaseContract.view, BaseCo
                     }
 
                     @Override
-                    public void onFailure(String msg) {
+                    public void onFailure(String error, int code) {
 
                     }
+
                 });
     }
 }

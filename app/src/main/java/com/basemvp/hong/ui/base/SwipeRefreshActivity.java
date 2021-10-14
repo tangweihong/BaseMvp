@@ -12,7 +12,7 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import androidx.annotation.NonNull;
 import butterknife.BindView;
 
-public abstract class SwipeRefreshActivity<P extends BasePresenter> extends BaseMvpActivity<P> implements ISwipeRefreshView {
+public abstract class SwipeRefreshActivity extends BaseMvpActivity implements ISwipeRefreshView {
     @BindView(R.id.refresh_layout)
     protected SmartRefreshLayout vSwipeRefresh;
 

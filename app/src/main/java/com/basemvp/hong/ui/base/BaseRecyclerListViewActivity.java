@@ -1,5 +1,6 @@
 package com.basemvp.hong.ui.base;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.chad.library.adapter.base.loadmore.BaseLoadMoreView;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
+import java.util.List;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -22,7 +25,8 @@ import butterknife.BindView;
 /**
  * Created by hong on 2020/5/11 16:54.
  */
-public abstract class BaseRecyclerListViewActivity<Adapter extends BaseQuickAdapter, P extends BasePresenter> extends SwipeRefreshActivity<P> {
+public abstract class BaseRecyclerListViewActivity<T, Adapter extends BaseQuickAdapter> extends SwipeRefreshActivity {
+
     @BindView(R.id.recycler_view)
     public RecyclerView mRecyclerView;
 
@@ -40,7 +44,7 @@ public abstract class BaseRecyclerListViewActivity<Adapter extends BaseQuickAdap
     @Override
     protected void initView() {
         super.initView();
-        Class adapterClass = (Class) TypeUtil.getSuperclassTypeParameter(getClass(), 0);
+        Class adapterClass = (Class) TypeUtil.getSuperclassTypeParameter(getClass(), 1);
         try {
             mAdapter = (Adapter) adapterClass.newInstance();
         } catch (Exception e) {
@@ -61,13 +65,6 @@ public abstract class BaseRecyclerListViewActivity<Adapter extends BaseQuickAdap
         mRecyclerView.setLayoutManager(getLayoutManager());
         mRecyclerView.setAdapter(mAdapter);
         setHasFixedSize();
-
-        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_list_empty_view, null);
-        mEmptyLlt = view.findViewById(R.id.empty_llt);
-        mEmptyImage = view.findViewById(R.id.empty_img);
-        mEmptyText = view.findViewById(R.id.empty_tv);
-        mAdapter.setEmptyView(view);
-
         if (isInitLoadMoreModule()) {
             mAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
                 @Override
@@ -114,11 +111,23 @@ public abstract class BaseRecyclerListViewActivity<Adapter extends BaseQuickAdap
         }
     }
 
+    protected void setEmptyView() {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_list_empty_view, null);
+        mEmptyLlt = view.findViewById(R.id.empty_llt);
+        mEmptyImage = view.findViewById(R.id.empty_img);
+        mEmptyText = view.findViewById(R.id.empty_tv);
+        mAdapter.setEmptyView(view);
+    }
+
+    @Override
+    protected Bundle getRequestParams() {
+        return getRequestParams(pageIndex);
+    }
+
+    protected abstract Bundle getRequestParams(int pageIndex);
+
     public RecyclerView.LayoutManager getLayoutManager() {
-        if (layoutManager == null) {
-            layoutManager = new LinearLayoutManager(mContext);
-        }
-        return layoutManager;
+        return new LinearLayoutManager(mContext);
     }
 
     /**
@@ -188,5 +197,23 @@ public abstract class BaseRecyclerListViewActivity<Adapter extends BaseQuickAdap
      */
     public Adapter getAdapter() {
         return mAdapter;
+    }
+
+
+    protected void addListData(List<T> mList) {
+        if (pageIndex == 1) {
+            mAdapter.setList(mList);
+        } else {
+            mAdapter.addData(mList);
+        }
+        if (mAdapter.getData().size() < getPageSize()) {
+            mAdapter.getLoadMoreModule().loadMoreEnd(true);
+        } else {
+            mAdapter.getLoadMoreModule().loadMoreComplete();
+        }
+
+        if (mAdapter.getData() == null || mAdapter.getData().size() <= 0) {
+            setEmptyView();
+        }
     }
 }

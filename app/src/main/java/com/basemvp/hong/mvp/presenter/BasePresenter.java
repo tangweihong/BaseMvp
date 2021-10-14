@@ -37,6 +37,9 @@ public class BasePresenter<V extends IBaseView, M extends BaseModel> implements 
         attachView(view);
     }
 
+    public M getModel() {
+        return mModel;
+    }
     /**
      * 如果当前页面不需要操作数据,只需要 View 层,则使用此构造函数
      *

@@ -17,14 +17,6 @@
 package com.basemvp.hong.common;
 
 public class IntentExtra {
-    public static final String CLASS = "_CLASS";
-    public static final String TITLE = "_TITLE";
-    public static final String DATA = "_DATA";
-    public static final String IS_POP = "_IS_POP";
-    public static final String ADAPTER = "_ADAPTER";
     public static final String PAGE_INDEX = "_PAGE_INDEX";
-
-    public static final String IS_FINISH = "_IS_FINISH";
-    public static final String TOKEN = "token";
-
+    public static final String PAGE_SIZE = "_PAGE_SIZE";
 }
