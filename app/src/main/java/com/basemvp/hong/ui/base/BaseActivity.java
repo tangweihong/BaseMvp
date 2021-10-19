@@ -69,12 +69,14 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
         if (!getConfigHideToolbar()) {
             setupActionBar();
         }
-        initView();
+        initView(savedInstanceState);
         initData();
-        initPresenter();
         onGetData();
     }
 
+    /**
+     * 语言设置
+     */
     protected void setLanguage() {
         Locale myLocale = new Locale(mmkv.decodeString(Constants.LANGUAGE, "zh"));
         Resources res = getResources();
@@ -88,14 +90,14 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
      * 初始化沉浸式状态栏
      */
     protected void initImmersion() {
-        ImmersionBar.with(this).init();
+        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).init();
     }
 
 
     /**
      * 初始化视图
      */
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
     }
 
     /**
@@ -104,8 +106,6 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
     protected void initData() {
     }
 
-    protected void initPresenter() {
-    }
 
     /**
      * get {@link FConfig#value()}
@@ -127,14 +127,15 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
 
 
     /**
-     * set ToolBar
+     * 设置Toolbar 信息
      */
     protected void setupActionBar() {
         vAppBarLayout = findViewById(R.id.appbar_layout);
         vToolbar = findViewById(R.id.toolbar);
+       ImageView vBarBack = findViewById(R.id.bar_back);
         if (fConfig.navigationIcon() != 0) {
-            vToolbar.setNavigationIcon(fConfig.navigationIcon());
-            vToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            vBarBack.setImageResource(fConfig.navigationIcon());
+            vBarBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
@@ -142,11 +143,12 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
             });
         }
         vTitle = (TextView) findViewById(R.id.bar_title);
-        setTitle(fConfig.title());
+        setTitle(fConfig.title() == 0 ? "" : getString(fConfig.title()));
         if (!TextUtils.isEmpty(fConfig.rightText())) {
             setRightText(fConfig.rightText(), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    setRightOnClickListener();
                 }
             });
         }
@@ -154,12 +156,16 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
             setRightImage(fConfig.rightImage(), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    setRightOnClickListener();
                 }
             });
         }
         ImmersionBar.setTitleBar(this, vToolbar);
     }
 
+    protected void setRightOnClickListener() {
+
+    }
 
     /**
      * set title text
@@ -202,7 +208,6 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
         view.setOnClickListener(onClickListener);
         Glide.with(this).load(url).into(view);
     }
-
 
 
     @Override

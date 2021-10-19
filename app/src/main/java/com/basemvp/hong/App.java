@@ -43,7 +43,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         sContext = this;
-        AppInfo.init(this);
+        AppInfo.init();
         MMKV.initialize(this);
         if (BuildConfig.DEBUG) {
             XLog.enableLogging();

@@ -122,70 +122,11 @@ public class BaseFragment extends RxFragment implements IBaseView {
         startActivity(intent);
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-//		XLog.v(getBackStackTag(), "onHiddenChanged -> " + hidden);
-        if (hidden) {
-            pageHidden();
-        } else {
-            pageShow();
-        }
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (!isCreated) {
-            return;
-        }
-        if (isVisibleToUser) {
-            pageShow();
-        } else {
-            pageHidden();
-        }
-    }
-
-    private void pageShow() {
-        onPageShow();
-    }
-
-    private void pageHidden() {
-        for (Field field : getClass().getDeclaredFields()) {
-            try {
-                field.setAccessible(true);
-                final Object o = field.get(this);
-                if (o instanceof EditText) {
-                    ((EditText) o).clearFocus();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        onPageHidden();
-    }
-
-    protected void onPageHidden() {
-        isPageShow = false;
-    }
-
-    protected void onPageShow() {
-        isPageShow = true;
-    }
-
-    public void showPage() {
-        if (!isHidden()) {
-            onPageShow();
-        }
-    }
-
-
 
     @Override
     public void onStart() {
         super.onStart();
     }
-
-
 
 
     @Override
@@ -196,6 +137,7 @@ public class BaseFragment extends RxFragment implements IBaseView {
 
     @Override
     public void onDestroyView() {
+        isLoaded = false;
         super.onDestroyView();
 
         if (mUnbinder != null) {
@@ -207,6 +149,18 @@ public class BaseFragment extends RxFragment implements IBaseView {
     @Override
     public void onGetData() {
 
+    }
+
+    boolean isLoaded = false;
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isLoaded && !isHidden()) {
+            lazyData();
+            isLoaded = true;
+        }
     }
 
     public void lazyData() {

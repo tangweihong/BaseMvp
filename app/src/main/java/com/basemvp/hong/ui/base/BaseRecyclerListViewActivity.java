@@ -42,8 +42,8 @@ public abstract class BaseRecyclerListViewActivity<T, Adapter extends BaseQuickA
     protected TextView mEmptyText;
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initView(Bundle save) {
+        super.initView(save);
         Class adapterClass = (Class) TypeUtil.getSuperclassTypeParameter(getClass(), 1);
         try {
             mAdapter = (Adapter) adapterClass.newInstance();

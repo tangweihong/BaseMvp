@@ -1,6 +1,8 @@
 package com.basemvp.hong.ui.base;
 
 
+import android.os.Bundle;
+
 import com.basemvp.hong.R;
 import com.basemvp.hong.mvp.presenter.BasePresenter;
 import com.basemvp.hong.mvp.view.ISwipeRefreshView;
@@ -17,8 +19,8 @@ public abstract class SwipeRefreshActivity extends BaseMvpActivity implements IS
     protected SmartRefreshLayout vSwipeRefresh;
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initView(Bundle save) {
+        super.initView(save);
         vSwipeRefresh.setRefreshHeader(new ClassicsHeader(mContext));
         vSwipeRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override

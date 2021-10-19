@@ -80,7 +80,6 @@ public class RxTransformer {
                     view.showLoadingDialog();//显示进度条
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .throttleFirst(2, TimeUnit.SECONDS)
                 .doFinally(view::loadingFinish)
                 .compose(view.bindToLifecycle());
     }

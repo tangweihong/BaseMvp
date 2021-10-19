@@ -10,7 +10,7 @@ import com.basemvp.hong.request.RxTransformer;
 /**
  * Create by Hong on 2020/4/14 11:10.
  */
-public class RequestPresenter<T> extends BasePresenter<BaseContract.view, BaseContract.model>  {
+public class RequestPresenter<T> extends BasePresenter<BaseContract.view, BaseContract.model> {
     public RequestPresenter(BaseContract.view view) {
         super(view);
     }
@@ -30,25 +30,25 @@ public class RequestPresenter<T> extends BasePresenter<BaseContract.view, BaseCo
 
                     @Override
                     public void onFailure(String error, int code) {
-                        getView().showToast(error);
+                        getView().LoadingError(error, code);
                     }
 
                 });
     }
 
 
-    public void doGetDataDialog(Bundle bundle) {
+    public void doGetDataNoDialog(Bundle bundle) {
         mModel.getData(bundle)
-                .compose(RxTransformer.transformWithLoadingDialog(getView()))
+                .compose(RxTransformer.transform(getView()))
                 .subscribe(new BaseObserver<T>() {
                     @Override
                     public void onSuccess(T response) {
-
+                        getView().onFillData(response);
                     }
 
                     @Override
                     public void onFailure(String error, int code) {
-
+                        getView().showToast(error);
                     }
 
                 });

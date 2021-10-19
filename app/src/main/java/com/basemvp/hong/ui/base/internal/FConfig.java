@@ -29,12 +29,13 @@ public @interface FConfig {
      *
      * @return
      */
-    int navigationIcon() default 0;
+    int navigationIcon() default R.drawable.icon_back;
 
     /**
      * @return title 标题
      */
-    String title() default "";
+    int title() default 0;
+
 
     /**
      * @return 右边文字

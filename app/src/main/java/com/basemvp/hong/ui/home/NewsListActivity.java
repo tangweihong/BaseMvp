@@ -36,17 +36,17 @@ import io.reactivex.plugins.RxJavaPlugins;
 /**
  * Create by Hong on 2020/4/14 11:30.
  */
-@FConfig(value = R.layout.activity_news, hideToolbar = true)
+@FConfig(value = R.layout.activity_test, hideToolbar = true)
 public class NewsListActivity extends BaseRecyclerListViewActivity<NewsListEntity.DataBean, HomeAdapter>
         implements BaseContract.view<NewsListEntity> {
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initView(Bundle save) {
+        super.initView(save);
         findViewById(R.id.tv_refresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getData();
+               startActivity(DetailActivity.class);
             }
         });
         getAdapter().setOnItemClickListener(new OnItemClickListener() {

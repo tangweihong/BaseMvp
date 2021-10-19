@@ -10,20 +10,24 @@
         android:background="@android:color/transparent"
         app:elevation="0dp">
 
-        <View
-            android:id="@+id/status_bar_line"
-            android:layout_width="match_parent"
-            android:background="#80120F19"
-            android:layout_height="0dp" />
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#80120F19"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
-            app:titleTextAppearance="@style/Toolbar_TextAppearance">
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:titleMargin="0dp">
+
+            <ImageView
+                android:id="@+id/bar_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:scaleType="centerInside"
+                tools:ignore="RtlHardcoded" />
 
             <TextView
                 android:id="@+id/bar_title"
@@ -32,10 +36,12 @@
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:maxWidth="200dp"
                 android:maxLines="1"
                 android:textColor="@color/font_text_color"
                 android:textSize="@dimen/sp18"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"
+                tools:text="标题" />
 
 
             <ImageView
@@ -54,14 +60,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_marginRight="15dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:gravity="center"
-                android:layout_marginRight="15dp"
                 android:textColor="@color/font_text_color"
                 android:textSize="@dimen/sp15"
                 android:visibility="gone"
                 tools:ignore="RtlHardcoded" />
         </androidx.appcompat.widget.Toolbar>
 
+        <ImageView
+            android:id="@+id/toolbar_line"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/actionbar_shadow_down" />
     </com.google.android.material.appbar.AppBarLayout>
 </merge>

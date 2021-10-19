@@ -2,7 +2,7 @@ package com.basemvp.hong.common;
 
 
 /**
- * Constants 接口加密秘钥
+ * Constants
  * Created by Hong on 2019/8/14.
  * Version:1
  */

@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 /**
  * Create by Hong on 2020/4/14 11:31.
  */
-public class DetaisModel implements DetailsContract.model<HomeEntity> {
+public class DetailsModel implements DetailsContract.model<HomeEntity> {
 
     @Override
     public Observable<Result<HomeEntity>> getData(Bundle bundle) {
