@@ -15,7 +15,6 @@ RxJava + Okhttp + Retrofit + MVP + RxLifeCache
 * AndPermission 权限框架
 * ImmersionBar 沉浸式状态栏
 
-* 封装XLog日志 
 * BaseRecycleView 
 * BaseActivity 
 * BaseFragment 
