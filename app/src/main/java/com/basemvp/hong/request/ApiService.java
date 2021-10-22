@@ -4,17 +4,14 @@ package com.basemvp.hong.request;
 import com.basemvp.hong.mvp.model.entity.HomeEntity;
 import com.basemvp.hong.mvp.model.entity.MarketItemEntity;
 import com.basemvp.hong.mvp.model.entity.NewsListEntity;
+import com.basemvp.hong.mvp.model.entity.Result;
 import com.basemvp.hong.mvp.model.entity.StrategyListEntity;
 import com.basemvp.hong.mvp.model.entity.VersionEntity;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService {

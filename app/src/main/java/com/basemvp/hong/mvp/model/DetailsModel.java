@@ -2,11 +2,10 @@ package com.basemvp.hong.mvp.model;
 
 import android.os.Bundle;
 
-import com.basemvp.hong.mvp.contract.BaseContract;
 import com.basemvp.hong.mvp.contract.DetailsContract;
 import com.basemvp.hong.mvp.model.entity.HomeEntity;
 import com.basemvp.hong.mvp.model.entity.VersionEntity;
-import com.basemvp.hong.request.Result;
+import com.basemvp.hong.mvp.model.entity.Result;
 
 import io.reactivex.Observable;
 

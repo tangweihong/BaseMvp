@@ -132,7 +132,7 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
     protected void setupActionBar() {
         vAppBarLayout = findViewById(R.id.appbar_layout);
         vToolbar = findViewById(R.id.toolbar);
-       ImageView vBarBack = findViewById(R.id.bar_back);
+        ImageView vBarBack = findViewById(R.id.bar_back);
         if (fConfig.navigationIcon() != 0) {
             vBarBack.setImageResource(fConfig.navigationIcon());
             vBarBack.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +143,8 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
             });
         }
         vTitle = (TextView) findViewById(R.id.bar_title);
-        setTitle(fConfig.title() == 0 ? "" : getString(fConfig.title()));
+
+        setTitle(fConfig.titleID() == 0 ? fConfig.title() : getString(fConfig.titleID()));
         if (!TextUtils.isEmpty(fConfig.rightText())) {
             setRightText(fConfig.rightText(), new View.OnClickListener() {
                 @Override

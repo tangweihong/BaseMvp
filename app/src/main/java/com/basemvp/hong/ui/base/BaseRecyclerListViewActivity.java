@@ -155,7 +155,7 @@ public abstract class BaseRecyclerListViewActivity<T, Adapter extends BaseQuickA
     }
 
     /**
-     * get page index
+     * 获取当前页码
      *
      * @return page index
      */
@@ -164,7 +164,7 @@ public abstract class BaseRecyclerListViewActivity<T, Adapter extends BaseQuickA
     }
 
     /**
-     * set the list page no
+     * 设置当前页码
      *
      * @param pageIndex page index
      */
@@ -173,7 +173,7 @@ public abstract class BaseRecyclerListViewActivity<T, Adapter extends BaseQuickA
     }
 
     /**
-     * get page pageSize
+     * 获取一页加载多少条
      *
      * @return page pageSize
      */
@@ -182,7 +182,7 @@ public abstract class BaseRecyclerListViewActivity<T, Adapter extends BaseQuickA
     }
 
     /**
-     * set the list page no
+     * 设置一页加载多少条
      *
      * @param size page size
      */
@@ -191,7 +191,7 @@ public abstract class BaseRecyclerListViewActivity<T, Adapter extends BaseQuickA
     }
 
     /**
-     * get this recycler view's adapter.
+     * 获取当前 Recyclerview 适配器
      *
      * @return Adapter
      */

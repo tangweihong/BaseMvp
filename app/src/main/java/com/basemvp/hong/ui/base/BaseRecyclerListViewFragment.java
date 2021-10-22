@@ -23,7 +23,7 @@ import butterknife.BindView;
 /**
  * Created by hong on 2020/5/11 16:54.
  */
-public abstract class BaseRecyclerListViewFragment<T,Adapter extends BaseQuickAdapter> extends SwipeRefreshFragment {
+public abstract class BaseRecyclerListViewFragment<T, Adapter extends BaseQuickAdapter> extends SwipeRefreshFragment {
     @BindView(R.id.recycler_view)
     protected RecyclerView mRecyclerView;
     private Adapter mAdapter;
@@ -57,7 +57,6 @@ public abstract class BaseRecyclerListViewFragment<T,Adapter extends BaseQuickAd
         mRecyclerView.setLayoutManager(getLayoutManager());
         mRecyclerView.setAdapter(mAdapter);
         setHasFixedSize();
-
         if (isInitLoadMoreModule()) {
             mAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
                 @Override
@@ -103,12 +102,14 @@ public abstract class BaseRecyclerListViewFragment<T,Adapter extends BaseQuickAd
             });
         }
     }
+
     protected void setEmptyView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.layout_list_empty_view, null);
         mEmptyImage = view.findViewById(R.id.empty_img);
         mEmptyText = view.findViewById(R.id.empty_tv);
         mAdapter.setEmptyView(view);
     }
+
     public RecyclerView.LayoutManager getLayoutManager() {
         if (layoutManager == null) {
             layoutManager = new LinearLayoutManager(mContext);
@@ -118,11 +119,13 @@ public abstract class BaseRecyclerListViewFragment<T,Adapter extends BaseQuickAd
 
     /**
      * 是否初始化LoadMoreModule
+     *
      * @return 默认true
      */
     public boolean isInitLoadMoreModule() {
         return true;
     }
+
     /**
      * 设置高度固定
      * <p>
@@ -197,6 +200,8 @@ public abstract class BaseRecyclerListViewFragment<T,Adapter extends BaseQuickAd
     public Adapter getAdapter() {
         return mAdapter;
     }
+
+
     protected void addListData(List<T> mList) {
         if (pageIndex == 1) {
             mAdapter.setList(mList);

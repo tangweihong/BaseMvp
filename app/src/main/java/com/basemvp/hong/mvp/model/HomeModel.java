@@ -4,13 +4,8 @@ import android.os.Bundle;
 
 import com.basemvp.hong.common.IntentExtra;
 import com.basemvp.hong.mvp.contract.BaseContract;
-import com.basemvp.hong.mvp.model.entity.HomeEntity;
-import com.basemvp.hong.mvp.model.entity.MarketItemEntity;
 import com.basemvp.hong.mvp.model.entity.NewsListEntity;
-import com.basemvp.hong.mvp.model.entity.StrategyListEntity;
-import com.basemvp.hong.request.Result;
-
-import java.util.List;
+import com.basemvp.hong.mvp.model.entity.Result;
 
 import io.reactivex.Observable;
 

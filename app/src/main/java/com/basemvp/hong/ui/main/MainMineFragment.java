@@ -8,7 +8,7 @@ import com.basemvp.hong.utils.XLog;
 /**
  * Created by hong on 2021/10/18 10:52.
  */
-@FConfig(value = R.layout.activity_test)
+@FConfig(value = R.layout.fragment_mine)
 public class MainMineFragment extends BaseFragment {
 
 

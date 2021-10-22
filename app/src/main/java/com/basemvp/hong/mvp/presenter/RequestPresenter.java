@@ -36,6 +36,23 @@ public class RequestPresenter<T> extends BasePresenter<BaseContract.view, BaseCo
                 });
     }
 
+    public void doGetData(Bundle bundle, Boolean isLoading) {
+        mModel.getData(bundle)
+                .compose(RxTransformer.transform(getView()))
+                .subscribe(new BaseObserver<T>() {
+                    @Override
+                    public void onSuccess(T response) {
+                        getView().onFillData(response);
+                    }
+
+                    @Override
+                    public void onFailure(String error, int code) {
+                        getView().LoadingError(error, code);
+                    }
+
+                });
+    }
+
 
     public void doGetDataNoDialog(Bundle bundle) {
         mModel.getData(bundle)

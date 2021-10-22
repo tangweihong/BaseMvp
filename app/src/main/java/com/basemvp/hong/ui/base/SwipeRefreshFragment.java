@@ -27,6 +27,16 @@ public abstract class SwipeRefreshFragment extends BaseMvpFragment implements IS
             }
         });
     }
+    /**
+     * 设置仅越界回弹
+     */
+    protected void setOnlyScrollBounce() {
+        vSwipeRefresh.setEnableRefresh(false);//是否启用下拉刷新功能
+        vSwipeRefresh.setEnableLoadMore(false);//是否启用上拉加载功能
+        vSwipeRefresh.setEnablePureScrollMode(true);//是否启用纯滚动模式
+        vSwipeRefresh.setEnableOverScrollBounce(true);//是否启用越界回弹
+        vSwipeRefresh.setEnableOverScrollDrag(true);//是否启用越界拖动（仿苹果效果）1.0.4
+    }
 
     @Override
     public void loadingFinish() {

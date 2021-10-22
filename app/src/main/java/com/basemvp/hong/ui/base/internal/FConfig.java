@@ -32,9 +32,14 @@ public @interface FConfig {
     int navigationIcon() default R.drawable.icon_back;
 
     /**
+     * @return title 标题 资源文件
+     */
+    int titleID() default 0;
+
+    /**
      * @return title 标题
      */
-    int title() default 0;
+    String title() default "";
 
 
     /**

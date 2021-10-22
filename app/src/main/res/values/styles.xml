@@ -12,7 +12,12 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#333</item>
     </style>
-
+    <!--欢迎界面主题-->
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <!--        <item name="android:windowBackground">@drawable/bg_splash</item>-->
+    </style>
     <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

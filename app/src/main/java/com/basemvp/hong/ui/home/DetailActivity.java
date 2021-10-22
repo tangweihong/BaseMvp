@@ -19,8 +19,9 @@ import butterknife.BindView;
 /**
  * Create by Hong on 2020/4/14 13:51.
  */
-@FConfig(value = R.layout.activity_test, title = R.string.app_name)
-public class DetailActivity extends BaseMvpActivity
+@FConfig(value = R.layout.activity_test, titleID = R.string.app_name)
+public class
+DetailActivity extends BaseMvpActivity
         implements DetailsContract.view<HomeEntity> {
     @BindView(R.id.tv_refresh)
     TextView mTvContent;
@@ -61,6 +62,8 @@ public class DetailActivity extends BaseMvpActivity
 
     @Override
     public void onFillData(HomeEntity data) {
+
+
     }
 
 }

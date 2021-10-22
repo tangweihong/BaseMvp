@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="100dp">
+
+    <TextClock
+        android:id="@+id/textclock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFF0000"
+        android:format24Hour="当前日期是yyyy年MMMMdd ，当前时间是 HH:mm:ss"
+        android:format12Hour="当前日期是yyyy年MMMMdd ，当前时间是aa h:mm:ss"
+        android:textSize="24sp" />
+</LinearLayout>

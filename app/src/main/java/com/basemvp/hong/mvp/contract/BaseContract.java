@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import com.basemvp.hong.mvp.model.BaseModel;
 import com.basemvp.hong.mvp.view.IBaseView;
-import com.basemvp.hong.request.Result;
-
-import java.util.HashMap;
+import com.basemvp.hong.mvp.model.entity.Result;
 
 import io.reactivex.Observable;
 

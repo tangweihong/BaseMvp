@@ -7,31 +7,20 @@ import com.basemvp.hong.R;
 import com.basemvp.hong.adapter.HomeAdapter;
 import com.basemvp.hong.common.IntentExtra;
 import com.basemvp.hong.mvp.contract.BaseContract;
-import com.basemvp.hong.mvp.model.HomeModel;
-import com.basemvp.hong.mvp.model.entity.HomeEntity;
-import com.basemvp.hong.mvp.model.entity.MarketItemEntity;
 import com.basemvp.hong.mvp.model.entity.NewsListEntity;
-import com.basemvp.hong.mvp.model.entity.StrategyListEntity;
 import com.basemvp.hong.mvp.model.entity.VersionEntity;
 import com.basemvp.hong.mvp.presenter.RequestPresenter;
 import com.basemvp.hong.request.ApiRetrofit;
 import com.basemvp.hong.request.BaseObserver;
-import com.basemvp.hong.request.Result;
+import com.basemvp.hong.mvp.model.entity.Result;
 import com.basemvp.hong.request.RxTransformer;
-import com.basemvp.hong.ui.base.BaseMvpActivity;
 import com.basemvp.hong.ui.base.BaseRecyclerListViewActivity;
 import com.basemvp.hong.ui.base.internal.FConfig;
-import com.basemvp.hong.utils.XLog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
-import butterknife.OnClick;
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.plugins.RxJavaPlugins;
 
 /**
  * Create by Hong on 2020/4/14 11:30.

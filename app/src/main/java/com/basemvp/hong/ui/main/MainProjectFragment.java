@@ -3,6 +3,7 @@ package com.basemvp.hong.ui.main;
 import com.basemvp.hong.R;
 import com.basemvp.hong.ui.base.BaseFragment;
 import com.basemvp.hong.ui.base.internal.FConfig;
+import com.basemvp.hong.ui.home.NewsListActivity;
 import com.basemvp.hong.utils.XLog;
 
 import butterknife.OnClick;
@@ -21,7 +22,7 @@ public class MainProjectFragment extends BaseFragment {
 
     @OnClick(R.id.tv_refresh)
     void onClick() {
-        throw new IllegalArgumentException("adapter == null");
+         startActivity(NewsListActivity.class);
     }
 
     @Override
