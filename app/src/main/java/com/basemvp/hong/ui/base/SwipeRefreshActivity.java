@@ -10,10 +10,12 @@ import com.basemvp.hong.mvp.view.ISwipeRefreshView;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.header.MaterialHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 
 public abstract class SwipeRefreshActivity extends BaseMvpActivity implements ISwipeRefreshView {
@@ -23,13 +25,18 @@ public abstract class SwipeRefreshActivity extends BaseMvpActivity implements IS
     @Override
     protected void initView(Bundle save) {
         super.initView(save);
-        vSwipeRefresh.setRefreshHeader(new MaterialHeader(mContext));
+        vSwipeRefresh.setRefreshHeader(setRefreshHeader());
         vSwipeRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 startRefresh();
             }
         });
+    }
+
+    public RefreshHeader setRefreshHeader() {
+        return new MaterialHeader(mContext)
+                .setColorSchemeColors(0xffFAD584, 0xffff4444, 0xff669900, 0xffaa66cc, 0xffff8800);
     }
 
     /**

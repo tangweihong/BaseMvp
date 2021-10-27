@@ -21,7 +21,6 @@
 
     <color name="main_toolbar_color">#FFFFFF</color>
     <color name="font_text_color">#FF1D1A1A</color>
-    <color name="font_text_black_color">#FF1D1A1A</color>
     <color name="font_hint_color">#FF5C5A65</color>
     <color name="font_yellow_color">#FFFAD584</color>
 

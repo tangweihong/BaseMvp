@@ -71,7 +71,6 @@ public class BaseActivity extends RxAppCompatActivity implements IBaseView {
         }
         initView(savedInstanceState);
         initData();
-        onGetData();
     }
 
     /**

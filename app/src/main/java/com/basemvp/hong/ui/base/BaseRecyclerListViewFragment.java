@@ -1,5 +1,6 @@
 package com.basemvp.hong.ui.base;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +27,17 @@ import butterknife.BindView;
 public abstract class BaseRecyclerListViewFragment<T, Adapter extends BaseQuickAdapter> extends SwipeRefreshFragment {
     @BindView(R.id.recycler_view)
     protected RecyclerView mRecyclerView;
+
     private Adapter mAdapter;
+
     private RecyclerView.LayoutManager layoutManager;
-    private int pageIndex = 1;
+
     protected ImageView mEmptyImage;
     protected TextView mEmptyText;
+
+    //页码
+    private int pageIndex = 1;
+    //每页条数
     private int pageSize = 15;
 
     @Override
@@ -111,10 +118,7 @@ public abstract class BaseRecyclerListViewFragment<T, Adapter extends BaseQuickA
     }
 
     public RecyclerView.LayoutManager getLayoutManager() {
-        if (layoutManager == null) {
-            layoutManager = new LinearLayoutManager(mContext);
-        }
-        return layoutManager;
+        return new LinearLayoutManager(mContext);
     }
 
     /**
@@ -134,6 +138,13 @@ public abstract class BaseRecyclerListViewFragment<T, Adapter extends BaseQuickA
     public void setHasFixedSize() {
         mRecyclerView.setHasFixedSize(true);
     }
+
+    @Override
+    protected Bundle getRequestParams() {
+        return getRequestParams(pageIndex);
+    }
+
+    protected abstract Bundle getRequestParams(int pageIndex);
 
     @Override
     public void startRefresh() {
@@ -208,12 +219,13 @@ public abstract class BaseRecyclerListViewFragment<T, Adapter extends BaseQuickA
         } else {
             mAdapter.addData(mList);
         }
-        if (mAdapter.getData().size() < getPageSize()) {
-            mAdapter.getLoadMoreModule().loadMoreEnd(true);
-        } else {
-            mAdapter.getLoadMoreModule().loadMoreComplete();
+        if (isInitLoadMoreModule()) {
+            if (mAdapter.getData().size() < getPageSize()) {
+                mAdapter.getLoadMoreModule().loadMoreEnd(true);
+            } else {
+                mAdapter.getLoadMoreModule().loadMoreComplete();
+            }
         }
-
         if (mAdapter.getData() == null || mAdapter.getData().size() <= 0) {
             setEmptyView();
         }

@@ -20,8 +20,11 @@ public abstract class BaseMvpActivity extends BaseActivity {
     }
 
     private void checkPresenter() {
-        if (mPresenter == null) {
-            throw new IllegalArgumentException("presenter == null");
+//        if (mPresenter == null) {
+//            throw new IllegalArgumentException("presenter == null");
+//        }
+        if (mPresenter != null) {
+                onGetData();
         }
     }
 

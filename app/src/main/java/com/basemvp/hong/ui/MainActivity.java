@@ -63,12 +63,9 @@ public class MainActivity extends BaseActivity {
                 selectedFragment(position);
                 switch (position) {
                     case 0:
-                    case 3:
-                        ImmersionBar.with(MainActivity.this).statusBarDarkFont(true, 0.2f).init();
-                        break;
+                    case 1:
                     case 2:
-                    case 4:
-                        ImmersionBar.with(MainActivity.this).init();
+                    case 3:
                         break;
                 }
             }

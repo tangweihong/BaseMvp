@@ -5,11 +5,14 @@ import com.basemvp.hong.R;
 import com.basemvp.hong.mvp.presenter.BasePresenter;
 import com.basemvp.hong.mvp.view.ISwipeRefreshView;
 import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.header.MaterialHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 
 public abstract class SwipeRefreshFragment extends BaseMvpFragment implements ISwipeRefreshView {
@@ -19,7 +22,7 @@ public abstract class SwipeRefreshFragment extends BaseMvpFragment implements IS
     @Override
     protected void initView() {
         super.initView();
-        vSwipeRefresh.setRefreshHeader(new ClassicsHeader(mContext));
+        vSwipeRefresh.setRefreshHeader(setRefreshHeader());
         vSwipeRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -27,6 +30,7 @@ public abstract class SwipeRefreshFragment extends BaseMvpFragment implements IS
             }
         });
     }
+
     /**
      * 设置仅越界回弹
      */
@@ -44,6 +48,10 @@ public abstract class SwipeRefreshFragment extends BaseMvpFragment implements IS
         stopRefresh();
     }
 
+    public RefreshHeader setRefreshHeader() {
+        return new MaterialHeader(mContext)
+                .setColorSchemeColors(0xffFAD584, 0xffff4444, 0xff669900, 0xffaa66cc, 0xffff8800);
+    }
 
     @Override
     public void stopRefresh() {

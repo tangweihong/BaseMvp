@@ -148,6 +148,21 @@ public abstract class BaseRecyclerListViewActivity<T, Adapter extends BaseQuickA
         mRecyclerView.setHasFixedSize(true);
     }
 
+
+    /**
+     * if loading error current page -1
+     *
+     * @param msg
+     * @param code
+     */
+    @Override
+    public void LoadingError(String msg, int code) {
+        super.LoadingError(msg, code);
+        if (pageIndex != 1) {
+            pageIndex = pageIndex - 1;
+        }
+    }
+
     @Override
     public void startRefresh() {
         pageIndex = 1;
@@ -206,12 +221,13 @@ public abstract class BaseRecyclerListViewActivity<T, Adapter extends BaseQuickA
         } else {
             mAdapter.addData(mList);
         }
-        if (mAdapter.getData().size() < getPageSize()) {
-            mAdapter.getLoadMoreModule().loadMoreEnd(true);
-        } else {
-            mAdapter.getLoadMoreModule().loadMoreComplete();
+        if (isInitLoadMoreModule()) {
+            if (mAdapter.getData().size() < getPageSize()) {
+                mAdapter.getLoadMoreModule().loadMoreEnd(true);
+            } else {
+                mAdapter.getLoadMoreModule().loadMoreComplete();
+            }
         }
-
         if (mAdapter.getData() == null || mAdapter.getData().size() <= 0) {
             setEmptyView();
         }

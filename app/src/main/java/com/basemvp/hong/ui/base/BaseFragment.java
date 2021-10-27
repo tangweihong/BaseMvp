@@ -164,6 +164,7 @@ public class BaseFragment extends RxFragment implements IBaseView {
     }
 
     public void lazyData() {
+
     }
 
     @Override
