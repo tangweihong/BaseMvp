@@ -41,7 +41,6 @@ public class NewsListActivity extends BaseRecyclerListViewActivity<NewsListEntit
         getAdapter().setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                getData();
             }
         });
 
@@ -73,19 +72,4 @@ public class NewsListActivity extends BaseRecyclerListViewActivity<NewsListEntit
         addListData(data.getData());
     }
 
-    private void getData() {
-        ApiRetrofit.getInstance().getApiService().getVersion("Android")
-                .compose(RxTransformer.transformWithLoadingDialog(this))
-                .subscribe(new BaseObserver<VersionEntity>() {
-                    @Override
-                    public void onSuccess(VersionEntity response) {
-                        showToast(response.getContent());
-                    }
-
-                    @Override
-                    public void onFailure(String error, int code) {
-                        showToast(error);
-                    }
-                });
-    }
 }

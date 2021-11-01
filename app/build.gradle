@@ -166,6 +166,7 @@ dependencies {
     implementation rootProject.ext.dependencies.lombok
     annotationProcessor rootProject.ext.dependencies.lombok
 
+    //
     implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
     implementation 'com.airbnb.android:lottie:4.1.0'
     androidTestImplementation rootProject.ext.dependencies.junit
